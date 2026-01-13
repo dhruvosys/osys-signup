@@ -15,7 +15,10 @@
             --text-main: #FFFFFF;
             --text-muted: #888888;
             --accent-bronze: #8E795E;
-            --artic-blue: #ffffff; /* NOIR EDITION: PURE WHITE */
+            
+            /* CLEAN NOIR: PURE WHITE/SILVER */
+            --artic-blue: #ffffff; 
+            
             --hud-grid: rgba(255, 255, 255, 0.05);
             --success-green: #00E08F;
         }
@@ -32,7 +35,7 @@
             overflow-x: hidden;
         }
 
-        /* --- CINEMATIC ENGINE (NOIR EDITION) --- */
+        /* --- CINEMATIC ENGINE (CLEAN NOIR) --- */
         #bg-engine { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -5; pointer-events: none; }
         
         .material-sweep {
@@ -41,6 +44,7 @@
             animation: lightSweep 15s ease-in-out infinite;
         }
         
+        /* CLEAN SILVER GRID OVERLAY */
         .grid-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), 
@@ -48,15 +52,7 @@
             background-size: 60px 60px; mask-image: radial-gradient(circle, black 0%, transparent 85%);
         }
         
-        /* UPDATED: DENSER WHITE MIST (Now Visible) */
-        .vapor-cloud {
-            position: absolute; width: 150%; height: 150%;
-            /* Increased opacity from 0.1 to 0.4 inside the gradient */
-            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.4), transparent 70%);
-            filter: blur(80px); 
-            opacity: 0.6; /* Global opacity increased */
-            animation: vaporDrift 20s ease-in-out infinite alternate;
-        }
+        /* VAPOR CLOUD REMOVED */
         
         .nodes-container { position: absolute; width: 100%; height: 100vh; z-index: 3; }
         
@@ -67,7 +63,6 @@
 
         @keyframes lightSweep { 0% { transform: translateX(0%); } 100% { transform: translateX(33%); } }
         @keyframes floatNode { from { transform: translateY(100vh); } to { transform: translateY(-10vh); } }
-        @keyframes vaporDrift { from { transform: translate(-5%, -5%); } to { transform: translate(5%, 5%); } }
 
         /* --- NAVIGATION --- */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; position: fixed; width: 100%; z-index: 100; mix-blend-mode: difference; }
@@ -81,12 +76,11 @@
         /* --- HERO --- */
         .hero { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 5%; }
         
-        /* UPDATED: TEXT NOW PULSES "STEAM" */
+        /* CLEAN REVEAL (NO STEAM LOOP) */
         .hero h1 { 
             font-size: clamp(3rem, 10vw, 6rem); 
             letter-spacing: 0.2em; font-weight: 300; text-transform: uppercase; margin-bottom: 10px;
-            /* Runs Reveal once, then loops mistBreathe forever */
-            animation: thermalReveal 3s ease-out forwards, mistBreathe 6s ease-in-out infinite 3s;
+            animation: thermalReveal 3s ease-out forwards;
         }
         
         .hero h2 { font-size: clamp(1.2rem, 3vw, 2rem); letter-spacing: 0.15em; font-weight: 200; color: white; margin-bottom: 20px; text-transform: uppercase; animation: fadeIn 3s ease-out forwards 0.5s; opacity: 0; }
@@ -94,12 +88,6 @@
         
         @keyframes thermalReveal { 0% { filter: blur(20px); opacity: 0; } 100% { filter: blur(0px); opacity: 1; } }
         @keyframes fadeIn { to { opacity: 1; } }
-        
-        /* NEW: STEAM PULSE ANIMATION FOR TEXT */
-        @keyframes mistBreathe {
-            0%, 100% { opacity: 1; filter: blur(0px); text-shadow: 0 0 10px rgba(255,255,255,0); }
-            50% { opacity: 0.8; filter: blur(2px); text-shadow: 0 0 30px rgba(255,255,255,0.5); }
-        }
 
         /* --- SECTIONS --- */
         section { padding: 100px 5%; opacity: 0; transform: translateY(30px); transition: 1s cubic-bezier(0.2, 1, 0.3, 1); background: transparent; position: relative; }
@@ -132,7 +120,7 @@
         /* IMAGE FRAME: 70% HEIGHT */
         .std-img-frame { 
             width: 100%; 
-            height: 70%; /* Gives the image plenty of horizontal room */
+            height: 70%; 
             background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; 
             color: #444; letter-spacing: 2px; font-size: 0.7rem; border-bottom: 1px solid #222; 
             z-index: 2; position: relative; 
@@ -223,11 +211,6 @@
         .flip-back h3 { color: var(--accent-bronze); margin-bottom: 20px; font-size: 1.1rem; letter-spacing: 2px; }
         .feature-list li { font-size: 0.85rem; margin-bottom: 8px; color: #ccc; }
 
-        /* UPDATED: WHITE/GREY STEAM */
-        .steam-container { position: absolute; top: -15%; left: -15%; width: 130%; height: 130%; pointer-events: none; z-index: -1; opacity: 1; background: radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 65%); }
-        .steam-puff { position: absolute; bottom: 0; width: 80px; height: 80px; background: radial-gradient(circle, rgba(255, 255, 255, 0.15), transparent 70%); filter: blur(35px); animation: steamRise 8s infinite ease-out; }
-        @keyframes steamRise { 0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0; } 40% { opacity: 0.6; } 100% { transform: translateY(-300px) scale(2.5) rotate(45deg); opacity: 0; } }
-
         /* MOLECULE SWIPE INDICATOR (WHITE) */
         .swipe-indicator {
             position: absolute; right: 5%; top: 55%; transform: translateY(-50%); z-index: 50; pointer-events: none;
@@ -308,7 +291,6 @@
     <div id="bg-engine">
         <div class="material-sweep"></div>
         <div class="grid-overlay"></div>
-        <div class="vapor-cloud" id="vapor-layer"></div>
         <div id="hero-nodes" class="nodes-container"></div>
     </div>
 
@@ -339,22 +321,18 @@
        
         <div class="standard-grid">
             <div class="standard-card">
-                <div class="steam-container"></div>
                 <div class="std-img-frame" style="background-image: url('holistic.png'); background-size: cover; background-position: center;"></div>
                 <div class="std-content"><h3>Holistic wellness ecosystem</h3></div>
             </div>
             <div class="standard-card">
-                <div class="steam-container"></div>
                 <div class="std-img-frame" style="background-image: url('equipment.png'); background-size: cover; background-position: center;"></div>
                 <div class="std-content"><h3>Best in class equipment and amenities</h3></div>
             </div>
             <div class="standard-card">
-                <div class="steam-container"></div>
                 <div class="std-img-frame" style="background-image: url('trainers.png'); background-size: cover; background-position: center;"></div>
                 <div class="std-content"><h3>Guided by expert trainers and signature classes</h3></div>
             </div>
             <div class="standard-card">
-                <div class="steam-container"></div>
                 <div class="std-img-frame" style="background-image: url('facilities.png'); background-size: cover; background-position: center;"></div>
                 <div class="std-content"><h3>World Class Facilities</h3></div>
             </div>
@@ -373,7 +351,6 @@
         
         <div class="flip-grid">
             <div class="flip-card-wrapper" onclick="this.classList.toggle('flipped')">
-                <div class="steam-container"></div>
                 <div class="flip-card-inner">
                     <div class="flip-front">
                         <div class="card-bg-img" style="background-image: url('train.png');"></div>
@@ -397,7 +374,6 @@
             </div>
 
             <div class="flip-card-wrapper" onclick="this.classList.toggle('flipped')">
-                <div class="steam-container"></div>
                 <div class="flip-card-inner">
                     <div class="flip-front">
                         <div class="card-bg-img" style="background-image: url('recover.png');"></div>
@@ -421,7 +397,6 @@
             </div>
 
             <div class="flip-card-wrapper" onclick="this.classList.toggle('flipped')">
-                <div class="steam-container"></div>
                 <div class="flip-card-inner">
                     <div class="flip-front">
                         <div class="card-bg-img" style="background-image: url('med.png');"></div>
@@ -445,7 +420,6 @@
             </div>
 
             <div class="flip-card-wrapper" onclick="this.classList.toggle('flipped')">
-                <div class="steam-container"></div>
                 <div class="flip-card-inner">
                     <div class="flip-front">
                         <div class="card-bg-img" style="background-image: url('lifestyle.png');"></div>
@@ -543,17 +517,7 @@
             }, { threshold: 0.1 });
             document.querySelectorAll('.scene').forEach(el => observer.observe(el));
 
-            // 4. GENERATE STEAM
-            document.querySelectorAll('.steam-container').forEach(cont => {
-                for(let i=0; i<8; i++) {
-                    const puff = document.createElement('div');
-                    puff.className = 'steam-puff';
-                    puff.style.left = (Math.random() * 100) + '%';
-                    puff.style.animationDelay = (Math.random() * 5) + 's';
-                    puff.style.animationDuration = (6 + Math.random() * 4) + 's';
-                    cont.appendChild(puff);
-                }
-            });
+            // STEAM GENERATION LOOP REMOVED
         });
     </script>
 </body>
