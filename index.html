@@ -15,7 +15,7 @@
             --text-main: #FFFFFF;
             --text-muted: #888888;
             --accent-bronze: #8E795E;
-            --artic-blue: #00b4ff;
+            --artic-blue: #ffffff; /* NOIR EDITION: PURE WHITE */
             --hud-grid: rgba(255, 255, 255, 0.05);
             --success-green: #00E08F;
         }
@@ -32,7 +32,7 @@
             overflow-x: hidden;
         }
 
-        /* --- CINEMATIC ENGINE --- */
+        /* --- CINEMATIC ENGINE (NOIR EDITION) --- */
         #bg-engine { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -5; pointer-events: none; }
         
         .material-sweep {
@@ -43,22 +43,26 @@
         
         .grid-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(0, 180, 255, 0.04) 1px, transparent 1px), 
-                              linear-gradient(90deg, rgba(0, 180, 255, 0.04) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), 
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 60px 60px; mask-image: radial-gradient(circle, black 0%, transparent 85%);
         }
         
+        /* UPDATED: DENSER WHITE MIST (Now Visible) */
         .vapor-cloud {
             position: absolute; width: 150%; height: 150%;
-            background: radial-gradient(circle at 50% 50%, rgba(0, 180, 255, 0.5), transparent 70%);
-            filter: blur(100px); opacity: 0.4; animation: vaporDrift 20s ease-in-out infinite alternate;
+            /* Increased opacity from 0.1 to 0.4 inside the gradient */
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.4), transparent 70%);
+            filter: blur(80px); 
+            opacity: 0.6; /* Global opacity increased */
+            animation: vaporDrift 20s ease-in-out infinite alternate;
         }
         
         .nodes-container { position: absolute; width: 100%; height: 100vh; z-index: 3; }
         
         .node { 
             position: absolute; background: var(--artic-blue); border-radius: 50%; 
-            opacity: 0.5; box-shadow: 0 0 8px var(--artic-blue); animation: floatNode 20s linear infinite; 
+            opacity: 0.4; box-shadow: 0 0 8px var(--artic-blue); animation: floatNode 20s linear infinite; 
         }
 
         @keyframes lightSweep { 0% { transform: translateX(0%); } 100% { transform: translateX(33%); } }
@@ -76,11 +80,26 @@
 
         /* --- HERO --- */
         .hero { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 5%; }
-        .hero h1 { font-size: clamp(3rem, 10vw, 6rem); letter-spacing: 0.2em; font-weight: 300; text-transform: uppercase; margin-bottom: 10px; animation: thermalReveal 3s ease-out forwards; }
+        
+        /* UPDATED: TEXT NOW PULSES "STEAM" */
+        .hero h1 { 
+            font-size: clamp(3rem, 10vw, 6rem); 
+            letter-spacing: 0.2em; font-weight: 300; text-transform: uppercase; margin-bottom: 10px;
+            /* Runs Reveal once, then loops mistBreathe forever */
+            animation: thermalReveal 3s ease-out forwards, mistBreathe 6s ease-in-out infinite 3s;
+        }
+        
         .hero h2 { font-size: clamp(1.2rem, 3vw, 2rem); letter-spacing: 0.15em; font-weight: 200; color: white; margin-bottom: 20px; text-transform: uppercase; animation: fadeIn 3s ease-out forwards 0.5s; opacity: 0; }
         .hero p { letter-spacing: 4px; color: var(--text-muted); font-size: clamp(0.7rem, 2vw, 0.9rem); text-transform: uppercase; animation: fadeIn 3s ease-out forwards 1s; opacity: 0; }
+        
         @keyframes thermalReveal { 0% { filter: blur(20px); opacity: 0; } 100% { filter: blur(0px); opacity: 1; } }
         @keyframes fadeIn { to { opacity: 1; } }
+        
+        /* NEW: STEAM PULSE ANIMATION FOR TEXT */
+        @keyframes mistBreathe {
+            0%, 100% { opacity: 1; filter: blur(0px); text-shadow: 0 0 10px rgba(255,255,255,0); }
+            50% { opacity: 0.8; filter: blur(2px); text-shadow: 0 0 30px rgba(255,255,255,0.5); }
+        }
 
         /* --- SECTIONS --- */
         section { padding: 100px 5%; opacity: 0; transform: translateY(30px); transition: 1s cubic-bezier(0.2, 1, 0.3, 1); background: transparent; position: relative; }
@@ -89,7 +108,7 @@
         .section-text { max-width: 800px; margin: 0 auto; color: var(--text-muted); line-height: 1.8; font-weight: 300; font-size: 1.1rem; text-align: center; }
         .bronze-text { color: var(--accent-bronze) !important; font-weight: 300; opacity: 0.9; }
 
-        /* --- THE STANDARD (HORIZONTAL SWIPE REEL) --- */
+        /* --- THE STANDARD (HORIZONTAL SWIPE REEL - LANDSCAPE) --- */
         .standard-grid { 
             display: flex; gap: 30px; overflow-x: auto; padding: 20px 0 50px 0; 
             scroll-snap-type: x mandatory; 
@@ -98,10 +117,10 @@
         .standard-grid::-webkit-scrollbar { display: none; } 
 
         .standard-card { 
-            min-width: 300px; max-width: 300px; 
-            
-            /* FIXED HEIGHT FOR UNIFORMITY */
-            height: 400px; 
+            /* LANDSCAPE DIMENSIONS (400x300) */
+            min-width: 400px; 
+            max-width: 400px; 
+            height: 300px; /* Fixed height for uniformity */
             
             scroll-snap-align: center; scroll-snap-stop: always; 
             flex: 0 0 auto; 
@@ -110,9 +129,23 @@
         }
         .standard-card:hover { border-color: var(--accent-bronze); transform: translateY(-5px); }
         
-        .std-img-frame { width: 100%; height: 250px; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; color: #444; letter-spacing: 2px; font-size: 0.7rem; border-bottom: 1px solid #222; z-index: 2; position: relative; }
-        .std-content { padding: 30px 20px; text-align: center; z-index: 2; position: relative; background: linear-gradient(180deg, rgba(20,20,20,0) 0%, rgba(10,10,10,0.8) 100%); flex-grow: 1; display: flex; align-items: center; justify-content: center; }
-        .std-content h3 { font-size: 1rem; letter-spacing: 2px; color: white; text-transform: uppercase; font-weight: 300; line-height: 1.4; }
+        /* IMAGE FRAME: 70% HEIGHT */
+        .std-img-frame { 
+            width: 100%; 
+            height: 70%; /* Gives the image plenty of horizontal room */
+            background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; 
+            color: #444; letter-spacing: 2px; font-size: 0.7rem; border-bottom: 1px solid #222; 
+            z-index: 2; position: relative; 
+        }
+        
+        /* TEXT CONTENT: 30% HEIGHT */
+        .std-content { 
+            padding: 0 20px; 
+            text-align: center; z-index: 2; position: relative; 
+            background: linear-gradient(180deg, rgba(20,20,20,0) 0%, rgba(10,10,10,0.8) 100%); 
+            flex-grow: 1; display: flex; align-items: center; justify-content: center; 
+        }
+        .std-content h3 { font-size: 1rem; letter-spacing: 2px; color: white; text-transform: uppercase; font-weight: 300; line-height: 1.4; margin: 0; }
         
         /* --- FLIP-GRID (CINEMATIC 65/35 LANDSCAPE) --- */
         .flip-grid { 
@@ -190,12 +223,12 @@
         .flip-back h3 { color: var(--accent-bronze); margin-bottom: 20px; font-size: 1.1rem; letter-spacing: 2px; }
         .feature-list li { font-size: 0.85rem; margin-bottom: 8px; color: #ccc; }
 
-        /* CRYO STEAM */
-        .steam-container { position: absolute; top: -15%; left: -15%; width: 130%; height: 130%; pointer-events: none; z-index: -1; opacity: 1; background: radial-gradient(circle at 50% 80%, rgba(0, 180, 255, 0.15) 0%, transparent 65%); }
-        .steam-puff { position: absolute; bottom: 0; width: 80px; height: 80px; background: radial-gradient(circle, rgba(0, 180, 255, 0.2), transparent 70%); filter: blur(35px); animation: steamRise 8s infinite ease-out; }
+        /* UPDATED: WHITE/GREY STEAM */
+        .steam-container { position: absolute; top: -15%; left: -15%; width: 130%; height: 130%; pointer-events: none; z-index: -1; opacity: 1; background: radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 65%); }
+        .steam-puff { position: absolute; bottom: 0; width: 80px; height: 80px; background: radial-gradient(circle, rgba(255, 255, 255, 0.15), transparent 70%); filter: blur(35px); animation: steamRise 8s infinite ease-out; }
         @keyframes steamRise { 0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0; } 40% { opacity: 0.6; } 100% { transform: translateY(-300px) scale(2.5) rotate(45deg); opacity: 0; } }
 
-        /* MOLECULE SWIPE INDICATOR */
+        /* MOLECULE SWIPE INDICATOR (WHITE) */
         .swipe-indicator {
             position: absolute; right: 5%; top: 55%; transform: translateY(-50%); z-index: 50; pointer-events: none;
             display: flex; gap: 6px; padding: 10px; background: radial-gradient(circle, rgba(0,0,0,0.5) 0%, transparent 70%); border-radius: 20px;
@@ -207,7 +240,20 @@
 
         /* --- INQUIRY --- */
         .inquiry-block { background: rgba(8, 8, 8, 0.6); border-top: 1px solid #1a1a1a; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-bottom: 80px; }
-        .fomo-text { display: block; text-align: center; color: var(--accent-bronze); letter-spacing: 3px; font-size: 1rem; margin-bottom: 40px; text-transform: uppercase; font-weight: 600; width: 100%; }
+        .fomo-text { 
+            display: block; 
+            text-align: center; 
+            color: var(--accent-bronze); 
+            letter-spacing: 2px; /* Slightly reduced spacing to save room */
+            font-size: 0.9rem; 
+            line-height: 1.6; /* breathes better on mobile */
+            margin: 0 auto 40px auto; /* Centered horizontally */
+            text-transform: uppercase; 
+            font-weight: 600; 
+            max-width: 600px; /* Prevents it from being a single long line on desktop */
+            width: 100%; 
+            padding: 0 10px; /* Safety padding for small phone edges */
+        }
         .form-grid { display: grid; gap: 20px; max-width: 600px; margin: 0 auto; width: 100%; text-align: left; }
         .input-group { border-bottom: 1px solid #333; }
         input, textarea { width: 100%; background: none; border: none; padding: 15px 0; color: white; font-family: 'Inter', sans-serif; font-size: 1rem; outline: none; }
@@ -218,13 +264,16 @@
         button { width: 100%; padding: 20px; margin-top: 30px; background: var(--accent-bronze); color: white; border: none; font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
         button:hover { background: white; color: black; }
         
-        /* INSTAGRAM CRYO ORBIT */
+        /* INSTAGRAM CRYO ORBIT (WHITE EDITION) */
         .insta-wrapper { position: relative; width: 60px; height: 60px; margin: 60px auto 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; }
         .insta-btn { width: 100%; height: 100%; border-radius: 50%; background: rgba(10,10,10,0.8); border: 1px solid var(--accent-bronze); display: flex; align-items: center; justify-content: center; color: var(--accent-bronze); transition: 0.3s; z-index: 2; position: relative; }
         .insta-wrapper:hover .insta-btn { background: var(--accent-bronze); color: black; box-shadow: 0 0 15px var(--accent-bronze); }
-        .insta-orbit { position: absolute; top: -10px; left: -10px; width: 80px; height: 80px; border-radius: 50%; border: 1px solid rgba(0, 180, 255, 0.1); animation: orbitSpin 4s linear infinite; z-index: 1; pointer-events: none; }
+        
+        .insta-orbit { position: absolute; top: -10px; left: -10px; width: 80px; height: 80px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.1); animation: orbitSpin 4s linear infinite; z-index: 1; pointer-events: none; }
         .insta-orbit::before { content: ''; position: absolute; top: 0; left: 50%; width: 6px; height: 6px; background: var(--artic-blue); border-radius: 50%; box-shadow: 0 0 10px var(--artic-blue); transform: translate(-50%, -50%); }
-        .insta-mist { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 120px; height: 120px; background: radial-gradient(circle, rgba(0, 180, 255, 0.15) 0%, transparent 70%); filter: blur(15px); opacity: 0.5; animation: mistPulse 3s ease-in-out infinite; pointer-events: none; }
+        
+        .insta-mist { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 120px; height: 120px; background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%); filter: blur(15px); opacity: 0.5; animation: mistPulse 3s ease-in-out infinite; pointer-events: none; }
+        
         .social-label { display: block; text-align: center; color: var(--text-muted); font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 15px; opacity: 0.7; }
         @keyframes orbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes mistPulse { 0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(0.8); } 50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.1); } }
@@ -242,7 +291,7 @@
 
             /* Fix swipe on mobile by keeping width constant */
             .flip-card-wrapper { min-width: 300px; max-width: 300px; height: 240px; }
-            .standard-card { min-width: 280px; max-width: 280px; }
+            .standard-card { min-width: 320px; max-width: 320px; height: 240px; } /* Landscape on mobile too */
         }
     </style>
 </head>
@@ -296,17 +345,17 @@
             </div>
             <div class="standard-card">
                 <div class="steam-container"></div>
-                <div class="std-img-frame">[ RENDER: EQUIPMENT ]</div>
+                <div class="std-img-frame" style="background-image: url('equipment.png'); background-size: cover; background-position: center;"></div>
                 <div class="std-content"><h3>Best in class equipment and amenities</h3></div>
             </div>
             <div class="standard-card">
                 <div class="steam-container"></div>
-                <div class="std-img-frame">[ RENDER: TRAINERS ]</div>
+                <div class="std-img-frame" style="background-image: url('trainers.png'); background-size: cover; background-position: center;"></div>
                 <div class="std-content"><h3>Guided by expert trainers and signature classes</h3></div>
             </div>
             <div class="standard-card">
                 <div class="steam-container"></div>
-                <div class="std-img-frame">[ RENDER: LUXURY FINISH ]</div>
+                <div class="std-img-frame" style="background-image: url('facilities.png'); background-size: cover; background-position: center;"></div>
                 <div class="std-content"><h3>World Class Facilities</h3></div>
             </div>
         </div>
@@ -335,7 +384,7 @@
                         </div>
                     </div>
                     <div class="flip-back">
-                        <h3>DISCIPLINES</h3>
+                        <h3>SIGNATURE CLASSES</h3>
                         <ul class="feature-list">
                             <li>Hybrid Bootcamp</li>
                             <li>Reformer Pilates</li>
@@ -359,13 +408,13 @@
                         </div>
                     </div>
                     <div class="flip-back">
-                        <h3>THERMAL OASIS</h3>
+                        <h3>RECOVERY SPA</h3>
                         <ul class="feature-list">
                             <li>Infrared Sauna</li>
-                            <li>Contrast Therapy Plunges</li>
+                            <li>Cold Plunge</li>
                             <li>Hydro-pool</li>
                             <li>Sound Bath</li>
-                            <li>Breathwork Sanctuary</li>
+                            <li>Breathwork Coaching</li>
                         </ul>
                     </div>
                 </div>
@@ -412,8 +461,8 @@
                             <li>Nutritionist F&B Bar</li>
                             <li>Executive Laundry Service</li>
                             <li>Private Lockers</li>
-                            <li>Sleep Coaching</li>
-                            <li>Co-Working Lounge</li>
+                            <li>Lifestyle Coaching</li>
+                            <li>Social Lounge</li>
                         </ul>
                     </div>
                 </div>
@@ -423,7 +472,7 @@
 
     <section id="apply" class="inquiry-block scene">
         <h2 class="section-title">Secure Your Status</h2>
-        <span class="fomo-text">Complimentary Exclusive Clinical Nutrition Assessment Included For Founding Members</span>
+        <span class="fomo-text">Join the founding waitlist now and receive a complimentary personalised nutrition assessment</span>
         
         <form class="form-grid" name="inquiry" method="POST" data-netlify="true">
             <div class="input-group"><label>First Name</label><input type="text" name="first_name" required></div>
