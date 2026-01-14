@@ -59,12 +59,12 @@
         @keyframes thermalReveal { 0% { filter: blur(20px); opacity: 0; } 100% { filter: blur(0px); opacity: 1; } }
         @keyframes fadeIn { to { opacity: 1; } }
 
-        /* --- NAVIGATION --- */
+        /* --- NAVIGATION (LOGO ONLY) --- */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; position: fixed; width: 100%; z-index: 100; mix-blend-mode: difference; }
         
-        .nav-brand-stack { display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; }
-        .nav-logo-img { height: 35px; width: auto; margin-bottom: -6px; display: block; }
-        .nav-brand-text { font-size: 0.8rem; font-weight: 600; letter-spacing: 4px; color: white; line-height: 1; text-transform: uppercase; }
+        .nav-brand-stack { display: flex; align-items: center; justify-content: center; text-decoration: none; }
+        .nav-logo-img { height: 35px; width: auto; display: block; }
+        
         .nav-cta { border: 1px solid rgba(255,255,255,0.3); padding: 10px 24px; text-decoration: none; color: white; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; }
         .nav-cta:hover { background: white; color: black; }
 
@@ -165,7 +165,6 @@
     <nav>
         <a href="#" class="nav-brand-stack">
             <img src="osys-logo.png" alt="OSYS Logo" class="nav-logo-img">
-            <span class="nav-brand-text">OSYS</span>
         </a>
         <a href="#apply" class="nav-cta">Apply for Access</a>
     </nav>
@@ -404,7 +403,7 @@
 
     </section>
 
-    <footer>© 2026 OSYS LUXURY CLUB SINGAPORE.</footer>
+    <footer>© 2026 OSYS WELLNESS CLUB SINGAPORE.</footer>
 
     <script>
         function ml_webform_success_35689223() {
