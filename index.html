@@ -186,8 +186,13 @@
         .text-zone { flex: 1; padding-right: 10px; display: flex; flex-direction: column; justify-content: center; }
         .front-content h3 { color: var(--accent-bronze); letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem !important; margin-bottom: 4px !important; text-shadow: none; text-align: left; }
         .front-content p { 
-            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; /* Force 2 lines max */
-            font-size: 0.75rem !important; color: #888; line-height: 1.3; text-align: left; margin: 0; font-weight: 300; 
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* The one we had */
+            line-clamp: 2;         /* <--- ADD THIS LINE TO FIX THE WARNING */
+            -webkit-box-orient: vertical;  
+            overflow: hidden;
+            font-size: 0.75rem !important; color: #888; line-height: 1.3; 
+            text-align: left; margin: 0; font-weight: 300; 
         }
 
         /* RIGHT SIDE: ACTION */
@@ -330,7 +335,11 @@
         </div>
     </section>
 
-    <div class="flip-grid">
+    <section class="scene" style="background: transparent;">
+        <h2 class="section-title">The Ecosystem</h2>
+        <p class="section-text" style="margin-bottom: 60px;">A unified collection of world-class modalities designed for the high-performance individual.</p>
+        
+        <div class="flip-grid">
             <div class="flip-card-wrapper" onclick="this.classList.toggle('flipped')">
                 <div class="flip-card-inner">
                     <div class="flip-front">
@@ -444,6 +453,7 @@
                 </div>
             </div>
         </div>
+    </section>
 
     <section id="apply" class="inquiry-block scene">
         <h2 class="section-title">Secure Your Status</h2>
